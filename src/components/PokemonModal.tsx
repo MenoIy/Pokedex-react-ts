@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { getPokemonInfoQuery, getPokemonImgUrl } from "../pokeApi";
 
 type PekemonStats = {
-  pv: number;
-  att: number;
+  hp: number;
+  atk: number;
   def: number;
   speed: number;
+  special_atk: number;
+  special_def: number;
 };
 
 type PokeData = {
@@ -32,12 +34,14 @@ const PokemonModal = ({ id }: { id: number }): JSX.Element => {
       types: data.types.map((type: any) => type.type.name),
       height: data.height / 10,
       weight: data.weight / 10,
-      image: getPokemonImgUrl(id + 1),
+      image: getPokemonImgUrl(id),
       stats: {
-        pv: data.stats[0].base_stat,
-        att: data.stats[1].base_stat,
+        hp: data.stats[0].base_stat,
+        atk: data.stats[1].base_stat,
         def: data.stats[2].base_stat,
-        speed: data.stats[3].base_stat,
+        special_atk: data.stats[3].base_stat,
+        special_def: data.stats[4].base_stat,
+        speed: data.stats[5].base_stat,
       },
     });
   }, [data, id]);
@@ -54,37 +58,48 @@ const PokemonModal = ({ id }: { id: number }): JSX.Element => {
           </div>
           <div className="pokemon__modal__cara">
             <div>
-              <h1>Height</h1>
+              <span>Height</span>
               <h1>{pokeData.height} m</h1>
             </div>
             <div>
-              <h1>Weight</h1>
+              <span>Weight</span>
               <h1>{pokeData.weight} kg</h1>
             </div>
           </div>
+          <span>Types :</span>
           <div className="pokemon__modal__types">
             {pokeData.types.map((type: string, index: number) => (
               <div key={index}>{type}</div>
             ))}
           </div>
-          <div className="pokemon__modal__stats">
-            <div>
-              <span>PV</span>
-              <h1>{pokeData.stats.pv}</h1>
-            </div>
-            <div>
-              <span>Attack</span>
-              <h1>{pokeData.stats.att}</h1>
-            </div>
-            <div>
-              <span>Defence</span>
-              <h1>{pokeData.stats.def}</h1>
-            </div>
-            <div>
-              <span>Speed</span>
-              <h1>{pokeData.stats.speed}</h1>
-            </div>
-          </div>
+          <table className="pokemon__modal__stats">
+            <tbody>
+              <tr>
+                <th>HP</th>
+                <td>{pokeData.stats.hp}</td>
+              </tr>
+              <tr>
+                <th>Attack</th>
+                <td>{pokeData.stats.atk}</td>
+              </tr>
+              <tr>
+                <th>Defense</th>
+                <td>{pokeData.stats.def}</td>
+              </tr>
+              <tr>
+                <th>Speed</th>
+                <td>{pokeData.stats.speed}</td>
+              </tr>
+              <tr>
+                <th>Special Attack</th>
+                <td>{pokeData.stats.special_atk}</td>
+              </tr>
+              <tr>
+                <th>Special Defense</th>
+                <td>{pokeData.stats.special_def}</td>
+              </tr>
+            </tbody>
+          </table>
         </>
       )}
     </div>

@@ -28,10 +28,10 @@ const PokemonsList = (): JSX.Element => {
       {data && (
         <div className="pokemon__list">
           {data.results.map((pokemon, index) => (
-            <div key={index} onClick={() => setSelectedPokemon(index)}>
+            <div key={index} onClick={() => setSelectedPokemon(index + 1)}>
               <Pokemon
                 key={index}
-                id={index}
+                id={index + 1}
                 name={pokemon.name}
                 img={getPokemonImgUrl(index + 1)}
               />

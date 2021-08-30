@@ -32,3 +32,51 @@
   flex-wrap: wrap;
   padding-top: 30px;
 }
+
+.pokemon__modal {
+  margin: auto;
+  max-width: 600px;
+  width: 60%;
+  justify-content: center;
+  background-color: rgb(254, 255, 255);
+  border-radius: 20px;
+  box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+  padding: 20px;
+  text-align: center;
+}
+
+.pokemon__modal__img img {
+  width: 60%;
+  height: 60%;
+  text-align: center;
+}
+
+.pokemon__modal__stats {
+  margin: auto;
+  width: 80%;
+  font-size: 20px;
+  font-family: "Open Sans Condensed", "Open Sans", helvetica, sans-serif;
+}
+
+.pokemon__modal__stats th {
+  text-align: left;
+  font-weight: 300;
+  padding: 0.25em 0.5em 0;
+  width: 40%;
+}
+
+.pokemon__modal__stats td {
+  width: 20%;
+  padding: 0.25em 0.5em 0;
+}
+
+.pokemon__modal__cara {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.pokemon__modal__cara div {
+  width: 50%;
+  font-size: 20px;
+}
