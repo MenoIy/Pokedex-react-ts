@@ -17,3 +17,7 @@ export const getPokemonsListQuery = (options?: GetPokeListOptions): string => {
 export const getPokemonImgUrl = (id: number): string => {
   return `${pokeImgUrl}/${id}.svg`;
 };
+
+export const getPokemonInfoQuery = (id: number): string => {
+  return `${pokeUrl}/pokemon/${id}`;
+};
