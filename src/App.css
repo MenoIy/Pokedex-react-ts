@@ -15,7 +15,8 @@
 }
 .pokemon__img__container img {
   margin-top: 20px;
-  max-width: 90%;
+  width: 100px;
+  height: 100px;
 }
 
 .pokemon__card h4 {
