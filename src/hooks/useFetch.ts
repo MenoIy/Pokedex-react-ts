@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 
-interface IUseFetch {
-  data: JSON | null;
+export interface IUseFetch {
+  data: any;
   loading: boolean;
   error: boolean;
 }
 
-interface IUseFetchOptions {
-  limit?: number;
-  offset?: number;
-}
-
-const useFetch = (url: string, option?: IUseFetchOptions): IUseFetch => {
+const useFetch = (url: string): IUseFetch => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -30,7 +25,7 @@ const useFetch = (url: string, option?: IUseFetchOptions): IUseFetch => {
         setError(true);
         setLoading(false);
       });
-  });
+  }, [url]);
   return { data, loading, error };
 };
 
