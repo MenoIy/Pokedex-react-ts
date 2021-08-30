@@ -1,13 +1,9 @@
 import "./App.css";
 import React from "react";
-import Pokemon from "./components/Pokemon";
+import PokemonsList from "./components/PokemonsList";
 
 const App: React.FC = (): JSX.Element => {
-  return (
-    <div className="App">
-      <Pokemon />
-    </div>
-  );
+  return <PokemonsList />;
 };
 
 export default App;
