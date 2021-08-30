@@ -1,11 +1,6 @@
 import useFetch from "../hooks/useFetch";
 import { useState, useEffect } from "react";
-import { getPokemonInfoQuery } from "../pokeApi";
-
-type Propse = {
-  id: number;
-  img: string;
-};
+import { getPokemonInfoQuery, getPokemonImgUrl } from "../pokeApi";
 
 type PekemonStats = {
   pv: number;
@@ -24,7 +19,7 @@ type PokeData = {
   stats: PekemonStats;
 };
 
-const PokemonModal = ({ id, img }: Propse): JSX.Element => {
+const PokemonModal = ({ id }: { id: number }): JSX.Element => {
   const { data, loading, error } = useFetch(getPokemonInfoQuery(id));
   const [pokeData, setPokeData] = useState<null | PokeData>(null);
 
@@ -37,7 +32,7 @@ const PokemonModal = ({ id, img }: Propse): JSX.Element => {
       types: data.types.map((type: any) => type.type.name),
       height: data.height / 10,
       weight: data.weight / 10,
-      image: img,
+      image: getPokemonImgUrl(id + 1),
       stats: {
         pv: data.stats[0].base_stat,
         att: data.stats[1].base_stat,
@@ -45,7 +40,7 @@ const PokemonModal = ({ id, img }: Propse): JSX.Element => {
         speed: data.stats[3].base_stat,
       },
     });
-  }, [data, img]);
+  }, [data, id]);
 
   return (
     <div className="pokemon__modal">
@@ -68,8 +63,8 @@ const PokemonModal = ({ id, img }: Propse): JSX.Element => {
             </div>
           </div>
           <div className="pokemon__modal__types">
-            {pokeData.types.map((type: string) => (
-              <div>{type}</div>
+            {pokeData.types.map((type: string, index: number) => (
+              <div key={index}>{type}</div>
             ))}
           </div>
           <div className="pokemon__modal__stats">

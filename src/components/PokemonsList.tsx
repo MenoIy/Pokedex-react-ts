@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Pokemon from "../components/Pokemon";
 import useFetch from "../hooks/useFetch";
 import { getPokemonsListQuery, getPokemonImgUrl } from "../pokeApi";
@@ -18,6 +19,7 @@ type IUseFetch = {
 
 const PokemonsList = (): JSX.Element => {
   const { data, loading, error }: IUseFetch = useFetch(getPokemonsListQuery());
+  const [selectedPokemon, setSelectedPokemon] = useState<number>(-1);
 
   return (
     <>
@@ -26,7 +28,7 @@ const PokemonsList = (): JSX.Element => {
       {data && (
         <div className="pokemon__list">
           {data.results.map((pokemon, index) => (
-            <div>
+            <div key={index} onClick={() => setSelectedPokemon(index)}>
               <Pokemon
                 key={index}
                 id={index}
@@ -35,6 +37,7 @@ const PokemonsList = (): JSX.Element => {
               />
             </div>
           ))}
+          {selectedPokemon !== -1 && <PokemonModal id={selectedPokemon} />}
         </div>
       )}
     </>
