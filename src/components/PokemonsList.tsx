@@ -1,9 +1,9 @@
-import React from "react";
 import Pokemon from "../components/Pokemon";
 import useFetch from "../hooks/useFetch";
 import { getPokemonsListQuery, getPokemonImgUrl } from "../pokeApi";
+import PokemonModal from "../components/PokemonModal";
 
-type IPokeData = {
+type PokeData = {
   count: number;
   next: string | null;
   previous: string | null;
@@ -11,7 +11,7 @@ type IPokeData = {
 };
 
 type IUseFetch = {
-  data: IPokeData | null;
+  data: PokeData | null;
   loading: boolean;
   error: boolean;
 };
@@ -26,12 +26,14 @@ const PokemonsList = (): JSX.Element => {
       {data && (
         <div className="pokemon__list">
           {data.results.map((pokemon, index) => (
-            <Pokemon
-              key={index}
-              id={index}
-              name={pokemon.name}
-              img={getPokemonImgUrl(index + 1)}
-            />
+            <div>
+              <Pokemon
+                key={index}
+                id={index}
+                name={pokemon.name}
+                img={getPokemonImgUrl(index + 1)}
+              />
+            </div>
           ))}
         </div>
       )}
