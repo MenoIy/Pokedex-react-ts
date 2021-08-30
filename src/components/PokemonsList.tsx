@@ -20,7 +20,7 @@ const PokemonsList = (): JSX.Element => {
   const { data, loading, error }: IUseFetch = useFetch(getPokemonsListQuery());
 
   return (
-    <div>
+    <>
       {error && <p>Error</p>}
       {loading && <p>Loading...</p>}
       {data && (
@@ -35,7 +35,7 @@ const PokemonsList = (): JSX.Element => {
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
