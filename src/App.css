@@ -7,13 +7,3 @@
   flex-wrap: wrap;
   padding-top: 30px;
 }
-
-.pokemon__modal__stats {
-  display: grid;
-  grid-template-columns: repeat(4, 3.5em);
-  grid-gap: 0.7em 1em;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  font-size: 0.8em;
-  padding: 1em;
-}

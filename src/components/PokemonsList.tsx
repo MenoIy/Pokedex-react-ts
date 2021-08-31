@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Pokemon from "../components/Pokemon";
+import PokemonCard from "./PokemonCard";
 import useFetch from "../hooks/useFetch";
 import { getPokemonsListQuery, getPokemonImgUrl } from "../pokeApi";
-import PokemonModal from "../components/PokemonModal";
+import PokemonModal from "./PokemonModal";
 
 type PokeData = {
   count: number;
@@ -29,7 +29,7 @@ const PokemonsList = (): JSX.Element => {
         <div className="pokemon__list">
           {data.results.map((pokemon, index) => (
             <div key={index} onClick={() => setSelectedPokemon(index + 1)}>
-              <Pokemon
+              <PokemonCard
                 key={index}
                 id={index + 1}
                 name={pokemon.name}
