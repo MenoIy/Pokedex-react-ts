@@ -1,3 +1,5 @@
+import "./style.css";
+
 type StatEntryProps = {
   name: string;
   value: number;
