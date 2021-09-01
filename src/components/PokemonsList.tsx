@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
 import Pagination from "./Pagination";
 import useFetch from "../hooks/useFetch";
-import { getPokemonsListQuery, getPokemonImgUrl } from "../pokeApi";
+import { getPokemonsListQuery } from "../pokeApi";
 import PokemonModal from "./PokemonModal";
 
 type PokeData = {
@@ -19,6 +19,7 @@ type IUseFetch = {
 };
 
 const ElementsByPage: number = 20;
+const ElementsCount: number = 898;
 
 const PokemonsList = (): JSX.Element => {
   const [selectedPokemon, setSelectedPokemon] = useState<number>(-1);
@@ -43,6 +44,7 @@ const PokemonsList = (): JSX.Element => {
           <div className="pokemon__list">
             {data.results.map((pokemon, index) => {
               const id = index + 1 + (currentPage - 1) * ElementsByPage;
+              if (id > ElementsCount) return null;
               return (
                 <PokemonCard
                   key={index}
@@ -57,7 +59,7 @@ const PokemonsList = (): JSX.Element => {
             )}
           </div>
           <Pagination
-            ElementsCount={data.count}
+            ElementsCount={ElementsCount}
             ElementsByPage={ElementsByPage}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}

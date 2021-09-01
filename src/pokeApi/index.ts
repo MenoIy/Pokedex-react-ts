@@ -1,6 +1,10 @@
 const pokeUrl = "https://pokeapi.co/api/v2";
-const pokeImgUrl =
+const pokeImgUrlDreamWorld: string =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world";
+const pokeImgUrlOfficialArtwork: string =
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork";
+
+const DreamWorldLimit: number = 649;
 
 type GetPokeListOptions = {
   offset?: number;
@@ -14,7 +18,8 @@ export const getPokemonsListQuery = (options?: GetPokeListOptions): string => {
 };
 
 export const getPokemonImgUrl = (id: number): string => {
-  return `${pokeImgUrl}/${id}.svg`;
+  if (id <= DreamWorldLimit) return `${pokeImgUrlDreamWorld}/${id}.svg`;
+  return `${pokeImgUrlOfficialArtwork}/${id}.png`;
 };
 
 export const getPokemonInfoQuery = (id: number): string => {
