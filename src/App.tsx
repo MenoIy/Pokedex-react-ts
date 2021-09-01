@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PokemonsList from "./PokemonsList";
 
 const App: React.FC = (): JSX.Element => {
