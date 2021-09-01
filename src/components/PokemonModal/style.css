@@ -15,6 +15,26 @@
   text-transform: capitalize;
 }
 
+.pokemon-modal .close-btn {
+  position: absolute;
+  border: none;
+  width: 2em;
+  height: 2em;
+  right: 0.1em;
+  top: 0.1em;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  outline: none;
+  color: #656565;
+  padding: 0 0.2em;
+  font-size: 1.5em;
+}
+.pokemon-modal .close-btn:hover {
+  background-color: rgb(221, 29, 29);
+  color: white;
+}
+
 .pokemon-img-container {
   width: 80%;
   height: 300px;
@@ -38,7 +58,7 @@
   border: solid 1px rgb(255, 255, 255);
   padding: 5px 10px;
   background-color: red;
-  color: white;
+  color: rgb(5, 1, 1);
   border-radius: 10px;
   box-shadow: 0 0px 15px rgba(46, 83, 90, 0.5);
 }

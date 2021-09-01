@@ -37,7 +37,9 @@ const PokemonsList = (): JSX.Element => {
               />
             </div>
           ))}
-          {selectedPokemon !== -1 && <PokemonModal id={selectedPokemon} />}
+          {selectedPokemon !== -1 && (
+            <PokemonModal id={selectedPokemon} onClose={setSelectedPokemon} />
+          )}
         </div>
       )}
     </>

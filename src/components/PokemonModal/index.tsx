@@ -1,4 +1,5 @@
 import useFetch from "../../hooks/useFetch";
+import React from "react";
 import { useState, useEffect } from "react";
 import { getPokemonInfoQuery, getPokemonImgUrl } from "../../pokeApi";
 import StatEntry from "../StatEntry";
@@ -23,7 +24,29 @@ type PokeData = {
   stats: PekemonStats;
 };
 
-const PokemonModal = ({ id }: { id: number }): JSX.Element => {
+const colors: { [key: string]: string } = {
+  fire: "#FDDFDF",
+  grass: "#DEFDE0",
+  electric: "#FCF7DE",
+  water: "#DEF3FD",
+  ground: "#f4e7da",
+  rock: "#d5d5d4",
+  fairy: "#fceaff",
+  poison: "#98d7a5",
+  bug: "#f8d5a3",
+  dragon: "#97b3e6",
+  psychic: "#eaeda1",
+  flying: "#F5F5F5",
+  fighting: "#E6E0D4",
+  normal: "#F5F5F5",
+};
+
+type PokeModalProps = {
+  id: number;
+  onClose: (id: number) => void;
+};
+
+const PokemonModal = ({ id, onClose }: PokeModalProps): JSX.Element => {
   const { data, loading, error } = useFetch(getPokemonInfoQuery(id));
   const [pokeData, setPokeData] = useState<null | PokeData>(null);
 
@@ -55,12 +78,17 @@ const PokemonModal = ({ id }: { id: number }): JSX.Element => {
       {pokeData && !loading && (
         <>
           <div className="pokemon-name">{pokeData.name}</div>
+          <button className="close-btn" onClick={() => onClose(-1)}>
+            ✕
+          </button>
           <div className="pokemon-img-container">
             <img src={pokeData.image} alt={pokeData.name} />
           </div>
           <div className="pokemon-types">
             {pokeData.types.map((type: string, index: number) => (
-              <div key={index}>{type}</div>
+              <div style={{ backgroundColor: colors[type] }} key={index}>
+                {type}
+              </div>
             ))}
           </div>
           <div className="pokemon-stats">
