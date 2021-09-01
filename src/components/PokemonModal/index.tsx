@@ -2,7 +2,6 @@ import useFetch from "../../hooks/useFetch";
 import { useState, useEffect } from "react";
 import { getPokemonInfoQuery, getPokemonImgUrl } from "../../pokeApi";
 import StatEntry from "../StatEntry";
-import Loading from "./Loading";
 import "./style.css";
 
 type PekemonStats = {
@@ -39,6 +38,17 @@ const colors: { [key: string]: string } = {
   flying: "#F5F5F5",
   fighting: "#E6E0D4",
   normal: "#F5F5F5",
+};
+
+const Loading = (): JSX.Element => {
+  return (
+    <div className="loading">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
 };
 
 type PokeModalProps = {

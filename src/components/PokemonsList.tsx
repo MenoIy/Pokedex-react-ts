@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PokemonCard from "./PokemonCard";
 import useFetch from "../hooks/useFetch";
 import { getPokemonsListQuery, getPokemonImgUrl } from "../pokeApi";
