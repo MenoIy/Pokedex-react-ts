@@ -60,6 +60,10 @@ const PokemonsList = ({ keyWord }: { keyWord: string }): JSX.Element => {
     }
   }, [data, keyWord, currentPage]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [keyWord]);
+
   useEffect((): void => {
     window.scroll(0, 0);
   }, [currentPage]);
