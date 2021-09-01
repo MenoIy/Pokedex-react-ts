@@ -22,7 +22,6 @@ const useFetch = (url: string): IUseFetch => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error, url);
         setError(true);
         setLoading(false);
       });

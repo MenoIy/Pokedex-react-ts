@@ -84,7 +84,7 @@ const PokemonModal = ({ id, onClose }: PokeModalProps): JSX.Element => {
   return (
     <div className="pokemon-modal">
       {loading && <Loading />}
-      {error && <div>Error</div>}
+      {error && <div>Oops something went wrong!</div>}
       {pokeData && !loading && (
         <>
           <div className="pokemon-name">{pokeData.name}</div>
