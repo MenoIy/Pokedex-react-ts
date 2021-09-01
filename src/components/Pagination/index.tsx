@@ -1,4 +1,5 @@
 import { usePagination } from "../../hooks/usePagination";
+import "./style.css";
 
 type PaginationProps = {
   ElementsCount: number;
@@ -41,7 +42,7 @@ const Pagination = ({
         {pagesRange.map((index) => (
           <li
             key={index}
-            className={index === currentPage ? "current__page" : "page"}
+            className={index === currentPage ? "current-page" : "page"}
             onClick={() => setCurrentPage(index)}
           >
             {index}

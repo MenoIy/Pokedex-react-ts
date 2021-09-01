@@ -1,0 +1,13 @@
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pagination li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.current-page {
+  color: rgb(19, 167, 212);
+}
