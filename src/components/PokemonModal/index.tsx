@@ -1,8 +1,8 @@
 import useFetch from "../../hooks/useFetch";
-import React from "react";
 import { useState, useEffect } from "react";
 import { getPokemonInfoQuery, getPokemonImgUrl } from "../../pokeApi";
 import StatEntry from "../StatEntry";
+import Loading from "./Loading";
 import "./style.css";
 
 type PekemonStats = {
@@ -73,7 +73,7 @@ const PokemonModal = ({ id, onClose }: PokeModalProps): JSX.Element => {
 
   return (
     <div className="pokemon-modal">
-      {loading && <div>Loading...</div>}
+      {loading && <Loading />}
       {error && <div>Error</div>}
       {pokeData && !loading && (
         <>
