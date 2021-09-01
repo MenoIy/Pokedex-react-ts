@@ -19,8 +19,8 @@
 .pokemon-card .img-container {
   background-color: white;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
 }
 
 .pokemon-card .img-container img {
@@ -29,7 +29,7 @@
 }
 
 .pokemon-card .card-name {
-  font-size: 1.2em;
+  font-size: 0.8em;
   margin-top: 30px;
   text-transform: capitalize;
 }

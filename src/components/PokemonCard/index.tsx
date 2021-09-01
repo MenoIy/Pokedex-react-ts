@@ -1,13 +1,17 @@
+import { getPokemonImgUrl } from "../../pokeApi";
 import "./style.css";
 
 type PokemonCardProps = {
+  id: number;
   name: string;
-  img: string;
+  onClick: (id: number) => void;
 };
 
-const PokemonCard = ({ name, img }: PokemonCardProps): JSX.Element => {
+const PokemonCard = ({ id, name, onClick }: PokemonCardProps): JSX.Element => {
+  const img = getPokemonImgUrl(id);
+
   return (
-    <section className="pokemon-card">
+    <section className="pokemon-card" onClick={() => onClick(id)}>
       <div className="img-container">
         <img src={img} alt={name} />
       </div>

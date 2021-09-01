@@ -44,13 +44,12 @@ const PokemonsList = (): JSX.Element => {
             {data.results.map((pokemon, index) => {
               const id = index + 1 + (currentPage - 1) * ElementsByPage;
               return (
-                <div key={index} onClick={() => setSelectedPokemon(id)}>
-                  <PokemonCard
-                    key={index}
-                    name={pokemon.name}
-                    img={getPokemonImgUrl(id)}
-                  />
-                </div>
+                <PokemonCard
+                  key={index}
+                  id={id}
+                  name={pokemon.name}
+                  onClick={setSelectedPokemon}
+                />
               );
             })}
             {selectedPokemon !== -1 && (
