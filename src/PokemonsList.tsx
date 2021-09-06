@@ -1,64 +1,61 @@
 import { useState, useEffect } from "react";
 import PokemonCard from "./components/PokemonCard";
 import Pagination from "./components/Pagination";
-import useFetch from "./hooks/useFetch";
 import { getPokemonsListQuery } from "./pokeApi";
 import PokemonModal from "./components/PokemonModal";
 
-type PokeData = {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: Array<{ name: string; url: string }>;
-};
+import {useQuery, QueryClient, QueryClientProvider} from 'react-query'
 
-type IUseFetch = {
-  data: PokeData | null;
-  loading: boolean;
-  error: boolean;
-};
+
+type PokeData = {
+  name : string,
+  url : string
+}
 
 const ElementsByPage: number = 20;
 const MaxApiElements: number = 898;
 
-const PokemonsList = ({ keyWord }: { keyWord: string }): JSX.Element => {
+const getQueryKey = (keyWord: string, currentPage: number): {offset : number, limit : number} => {
+  const limit = keyWord ? MaxApiElements :  ElementsByPage;
+  const offset = keyWord ? 0 : (currentPage - 1) * ElementsByPage;
+
+  return {offset:offset, limit:limit};
+};
+
+const queryClient = new QueryClient();
+
+
+const PokemonsListWithQuery = ({ keyWord }: { keyWord: string }) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PokemonsList keyWord={keyWord} />
+    </QueryClientProvider>
+  );
+};
+
+
+const PokemonsList = ({ keyWord}: { keyWord: string }): JSX.Element => {
+  
   const [selectedPokemon, setSelectedPokemon] = useState<number>(-1);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [elementsCount, setElementsCount] = useState<number>(MaxApiElements);
-  const [pokeList, setPokeList] = useState<
-    Array<{ name: string; url: string }>
-  >([]);
 
-  const { data, loading, error }: IUseFetch = useFetch(
-    getPokemonsListQuery({
-      offset: keyWord ? 0 : (currentPage - 1) * ElementsByPage,
-      limit: keyWord ? 898 : ElementsByPage,
-    })
-  );
+  const fetchPokemons = async ({queryKey} : any) => {
+    const [_key , {currentPage, keyWord}] = queryKey;
+    const { offset, limit } = getQueryKey(keyWord, currentPage);
+    const url = getPokemonsListQuery({offset, limit});
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (keyWord === "") return data.results;
+    return data.results.filter((pokemon : PokeData, index : number) =>  pokemon.name.startsWith(keyWord) && index <= MaxApiElements);
+  }
 
   const getIdFromUrl = (url: string): number => {
     const id = url.split("/");
     return parseInt(id[id.length - 2]);
   };
 
-  useEffect(() => {
-    if (!data) return;
-    if (keyWord === "") {
-      setElementsCount(898);
-      setPokeList(data.results);
-    } else {
-      const results = data.results
-        .slice(0, 898)
-        .filter((pokemon) => pokemon.name.startsWith(keyWord));
-      setElementsCount(results.length);
-      setPokeList(
-        results.slice(
-          (currentPage - 1) * ElementsByPage,
-          ElementsByPage * currentPage
-        )
-      );
-    }
-  }, [data, keyWord, currentPage]);
+  const {data, isLoading, isError} =  useQuery(['getList', {currentPage, keyWord}], fetchPokemons);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -70,19 +67,17 @@ const PokemonsList = ({ keyWord }: { keyWord: string }): JSX.Element => {
 
   return (
     <>
-      {error && <p>Oops something went wrong!</p>}
-      {loading && <p>Loading...</p>}
+      {isError && <p>Oops something went wrong!</p>}
+      {isLoading && <p>Loading...</p>}
       {data && (
         <>
           <div className="pokemon__list">
-            {pokeList.map((pokemon, index) => {
+            {data.map((pokemon : PokeData, index : number) => {
               const id = getIdFromUrl(pokemon.url);
-              console.log(pokeList);
-              if (id > MaxApiElements) return null;
               return (
                 <PokemonCard
                   key={index}
-                  id={id}
+                  id={id} 
                   name={pokemon.name}
                   onClick={setSelectedPokemon}
                 />
@@ -93,7 +88,7 @@ const PokemonsList = ({ keyWord }: { keyWord: string }): JSX.Element => {
             )}
           </div>
           <Pagination
-            ElementsCount={elementsCount}
+            ElementsCount={keyWord ? data.length : MaxApiElements}
             ElementsByPage={ElementsByPage}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
@@ -104,4 +99,6 @@ const PokemonsList = ({ keyWord }: { keyWord: string }): JSX.Element => {
   );
 };
 
-export default PokemonsList;
+
+
+export default PokemonsListWithQuery;
