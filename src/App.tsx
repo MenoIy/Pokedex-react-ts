@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import PokemonsListWithQuery  from "./PokemonsList";
+import PokemonsListWithQuery from "./PokemonsList";
 
 const App: React.FC = (): JSX.Element => {
   const [toSearch, setToSearch] = useState<string>("");
@@ -16,6 +16,7 @@ const App: React.FC = (): JSX.Element => {
         placeholder="Search"
         value={toSearch}
         onChange={handelChange}
+        className="search_input"
       />
       <PokemonsListWithQuery keyWord={toSearch} />
     </>
