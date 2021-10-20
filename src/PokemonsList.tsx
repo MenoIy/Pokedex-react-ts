@@ -40,7 +40,7 @@ const PokemonsList = ({ keyWord}: { keyWord: string }): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchPokemons = async ({queryKey} : any) => {
-    const [_key , {currentPage, keyWord}] = queryKey;
+    const [, {currentPage, keyWord}] = queryKey;
     const { offset, limit } = getQueryKey(keyWord, currentPage);
     const url = getPokemonsListQuery({offset, limit});
     const response = await fetch(url);
