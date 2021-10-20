@@ -22,4 +22,5 @@
   background-position: 95% center;
   border-radius: 50px;
   border: 1px solid #575756;
+  min-width: 120px;
 }
